@@ -1,0 +1,28 @@
+.container {
+    width: 200px;
+    height: 300px;
+    border: 1px solid black;
+    padding: 10px;
+    float: left;
+    margin-right: 20px;
+  }
+  
+  .item {
+    background-color: #eaeaea;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: grab;
+  }
+  
+  .item:hover {
+    background-color: #ccc;
+  }
+  
+  .container.dragover {
+    border-color: green;
+  }
+  
+  .container.dropzone {
+    background-color: #c8e6c9;
+  }
+  

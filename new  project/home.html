@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drag and Drop Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 20px;
+      height: 100vh;
+      background-color: #220463;
+      font-family: Arial, sans-serif;
+    }
+
+    .division {
+      width: 100%;
+      max-width: 400px;
+      height: 600px;
+      padding: 20px;
+      border: 1px solid black;
+      margin-bottom: 20px;
+      background-color: #18ddc9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .division:last-child {
+      background-color: #360404;
+    }
+
+    .division:hover {
+      background-color: #a37bbd;
+    }
+
+    #approved-message {
+      display: none;
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .image-container {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+  <script>
+    function allowDrop(event) {
+      event.preventDefault();
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      var data = event.dataTransfer.getData("text");
+      var element = document.getElementById(data);
+      var division2 = document.getElementById("division2");
+
+      division2.appendChild(element);
+      showApprovedMessage();
+    }
+
+    function showApprovedMessage() {
+      var approvedMessage = document.getElementById("approved-message");
+      approvedMessage.style.display = "block";
+    }
+
+    function resetDivisions() {
+      var division1 = document.getElementById("division1");
+      var division2 = document.getElementById("division2");
+
+      while (division2.firstChild) {
+        division1.appendChild(division2.firstChild);
+      }
+
+      var approvedMessage = document.getElementById("approved-message");
+      approvedMessage.style.display = "none";
+    }
+  </script>
+</head>
+<body>
+  <h1>Drag and Drop Example</h1>
+
+  <div class="division" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div id="division1" class="image-container">
+      <img id="image1" src="chatbot_image.jpeg" alt="Image 1" draggable="true" ondragstart="drag(event)">
+      <p id="text" draggable="true" ondragstart="drag(event)">Hi I am an AI-based chatbot, how can I help you? I can perform various tasks like answering FAQs, customer support, content recommendation, language translations, and many more. YOU CAN DRAG ME BELOW.</p>
+      <img id="image2" src="download.png" alt="Image 2" draggable="true" ondragstart="drag(event)">
+    </div>
+    
+  </div>
+
+  <div class="division" id="division2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+  <div id="approved-message">Approved!</div>
+
+  <button onclick="resetDivisions()">Reset</button>
+</body>
+</html>
